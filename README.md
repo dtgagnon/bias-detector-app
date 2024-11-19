@@ -15,43 +15,69 @@ A Progressive Web App (PWA) that helps users identify and understand bias in web
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
-- npm (v6 or higher)
+- [Nix](https://nixos.org/download.html) package manager
+  - Enable experimental features:
+    ```bash
+    # In ~/.config/nix/nix.conf or /etc/nix/nix.conf
+    experimental-features = nix-command flakes
+    ```
+- [direnv](https://direnv.net/) (recommended)
 
-### Installation
+### Development Setup
 
 1. Clone the repository:
 ```bash
 git clone [repository-url]
-cd bias-detector
+cd bias-detector-app
 ```
 
-2. Install dependencies:
+2. Enable direnv (if using):
 ```bash
-npm install
+direnv allow
+```
+
+Alternatively, you can enter the development shell manually:
+```bash
+nix develop
 ```
 
 3. Create a `.env` file in the root directory and add your OpenAI API key:
 ```
-REACT_APP_OPENAI_API_KEY=your_api_key_here
+OPENAI_API_KEY=your_api_key_here
 ```
 
-4. Start the development server:
+### Project Structure
+
+```
+.
+├── flake.nix           # Nix flake configuration
+├── shells/             # Development shell configurations
+├── nix/                # Nix package definitions
+│   └── packages/
+│       └── bias-detector/
+├── frontend/           # Web frontend (Svelte)
+└── src/               # Rust backend code
+```
+
+### Building
+
+To build the project:
+
 ```bash
-npm start
+nix build
 ```
 
-The app will be available at `http://localhost:3000`
+### Running in Development
 
-### Building for Production
-
-To create a production build:
+Start the development server:
 
 ```bash
-npm run build
-```
+# Frontend development server
+cd frontend && npm run dev
 
-The built files will be in the `build` directory.
+# Backend development server (in another terminal)
+cargo watch -x run
+```
 
 ## How It Works
 
@@ -75,11 +101,15 @@ The built files will be in the `build` directory.
 
 ## Contributing
 
-Contributions are welcome! Please read our contributing guidelines before submitting pull requests.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
