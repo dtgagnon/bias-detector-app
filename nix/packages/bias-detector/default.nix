@@ -17,7 +17,7 @@ stdenv.mkDerivation {
   ];
 
   propagatedBuildInputs = with pkgs; [
-    firefox-developer-edition
+    firefox-devedition
     geckodriver
   ];
 

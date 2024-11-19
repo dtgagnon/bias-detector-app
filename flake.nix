@@ -3,7 +3,7 @@
 
   inputs = {
     stable.url = "github:NixOS/nixpkgs/nixos-24.05";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "stable";
@@ -27,8 +27,8 @@
         })
       ];
 
-      # outputs-builder = channels: {
-      #   packages.default = channels.nixpkgs.callPackage ./nix/packages/bias-detector {};
-      # };
+      outputs-builder = channels: {
+        packages.default = channels.nixpkgs.callPackage ./nix/packages/bias-detector {};
+      };
     };
 }
