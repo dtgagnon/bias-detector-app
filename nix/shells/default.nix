@@ -29,7 +29,7 @@ mkShell {
     # Runtime dependencies
     nodejs_23
     # rust-bin.stable.latest.default
-    firefox-devedition
+    firefox
     geckodriver
   ] ++ [ rustToolchain];
 
