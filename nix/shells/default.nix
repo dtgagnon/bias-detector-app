@@ -17,26 +17,21 @@ mkShell {
     pkg-config
     cmake
     gnumake
-    nodePackages.npm
     wasm-pack
     wasm-bindgen-cli
-    nodePackages.typescript
-    nodePackages.vite
+    typescript
+    vite
     nodePackages.prettier  # Used in build process for formatting
-    nodePackages.eslint    # Used in build process for linting
+    eslint    # Used in build process for linting
   ];
 
   buildInputs = with pkgs; [
     # Runtime dependencies
-    nodejs_20
-    rustToolchain
-    firefox-developer-edition
+    nodejs_23
+    # rust-bin.stable.latest.default
+    firefox-devedition
     geckodriver
-
-    # Firefox/Gecko runtime libraries
-    geckodriver.libs
-    firefox-developer-edition.libs
-  ];
+  ] ++ [ rustToolchain];
 
   shellHook = ''
     echo "PWA + Gecko development environment ready!"
