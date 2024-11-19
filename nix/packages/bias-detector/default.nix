@@ -2,10 +2,7 @@
 , pkgs
 , stdenv
 , nodejs_20
-, nodePackages
 , makeWrapper
-, firefox-developer-edition
-, geckodriver
 }:
 
 stdenv.mkDerivation {
@@ -14,13 +11,12 @@ stdenv.mkDerivation {
 
   src = ../../../.;
 
-  nativeBuildInputs = with pkgs;[
+  nativeBuildInputs = with pkgs; [
     nodejs_20
-    nodePackages.npm
     makeWrapper
   ];
 
-  buildInputs = with pkgs; [
+  propagatedBuildInputs = with pkgs; [
     firefox-developer-edition
     geckodriver
   ];
@@ -36,6 +32,7 @@ stdenv.mkDerivation {
     cp -r build/* $out/share/bias-detector/
     
     mkdir -p $out/bin
+    source ${makeWrapper}/nix-support/setup-hook
     makeWrapper ${nodejs_20}/bin/node $out/bin/bias-detector \
       --add-flags "$out/share/bias-detector/server.js" \
       --prefix PATH : ${lib.makeBinPath [ firefox-developer-edition geckodriver ]}

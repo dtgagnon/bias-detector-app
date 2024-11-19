@@ -2,11 +2,11 @@
   description = "Bias Detective - Web Content Bias Analyzer";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    stable.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     snowfall-lib = {
       url = "github:snowfallorg/lib";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "stable";
     };
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
@@ -18,7 +18,7 @@
     inputs.snowfall-lib.mkFlake {
       inherit inputs;
       src = ./nix;
-      snowfall.namespace = "spirenix";
+      snowfall.namespace = "bias-app";
 
       overlays = [
         inputs.rust-overlay.overlays.default
@@ -27,8 +27,8 @@
         })
       ];
 
-      outputs-builder = channels: {
-        packages.default = channels.nixpkgs.callPackage ./nix/packages/bias-detector {};
-      };
+      # outputs-builder = channels: {
+      #   packages.default = channels.nixpkgs.callPackage ./nix/packages/bias-detector {};
+      # };
     };
 }
