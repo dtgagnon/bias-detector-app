@@ -35,7 +35,7 @@ stdenv.mkDerivation {
     source ${makeWrapper}/nix-support/setup-hook
     makeWrapper ${nodejs}/bin/node $out/bin/bias-detector \
       --add-flags "$out/share/bias-detector/server.js" \
-      --prefix PATH : ${lib.makeBinPath [ firefox geckodriver ]}
+      --prefix PATH : ${lib.makeBinPath [ pkgs.firefox pkgs.geckodriver ]}
   '';
 
   meta = with lib; {
